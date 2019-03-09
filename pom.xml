@@ -35,6 +35,18 @@
 		    <groupId>com.querydsl</groupId> 
 		    <artifactId>querydsl-jpa</artifactId> 
 		</dependency>
+		
+		<!-- Hibermate -->
+		<dependency>
+		    <groupId>org.hibernate.validator</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		</dependency>
+		
+		<!-- Javax -->
+		<dependency>
+		    <groupId>javax.validation</groupId>
+		    <artifactId>validation-api</artifactId>
+		</dependency>
 
 		<!-- Support -->
 		<dependency>
