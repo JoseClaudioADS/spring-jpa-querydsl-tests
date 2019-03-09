@@ -10,13 +10,19 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import dev.joseclaudio.model.entity.enums.ECountry;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "address_id"))
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Address extends BusinessEntity {
 
 	@NotNull

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -12,13 +13,19 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "client_id"))
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Client extends BusinessEntity {
 
 	@NotBlank
@@ -32,9 +39,9 @@ public class Client extends BusinessEntity {
 	@Column(unique = true, length = 250)
 	private String email;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "client_id")
-	private Set<Address> addresses = new HashSet<>();
+	private final Set<Address> addresses = new HashSet<>();
 
 	public void addAddress(Address address) {
 		addresses.add(address);
