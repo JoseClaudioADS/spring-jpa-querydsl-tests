@@ -10,6 +10,8 @@ import dev.joseclaudio.model.entity.Client;
 public interface ClientRepository
 		extends JpaRepository<Client, Long>, QuerydslPredicateExecutor<Client>, ClientRepositoryCustom {
 
+	Client findByEmail(String email);
+
 	// *** Plus
 
 	// using projection ClientName

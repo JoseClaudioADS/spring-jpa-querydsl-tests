@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 import dev.joseclaudio.model.entity.enums.ECountry;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(of = "country", callSuper = false)
 public class Address extends BusinessEntity {
 
 	@NotNull
