@@ -15,7 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import dev.joseclaudio.model.entity.Address;
 import dev.joseclaudio.model.entity.Client;
+import dev.joseclaudio.model.entity.QClient;
 import dev.joseclaudio.model.entity.enums.ECountry;
+import dev.joseclaudio.model.repository.BusinessOrder;
 import dev.joseclaudio.model.repository.client.ClientRepository;
 import dev.joseclaudio.model.repository.client.ClientSearch;
 
@@ -42,6 +44,7 @@ public class ClientRepositoryTests {
 
 		Client luizGoncalves = Client.builder().name("Luiz Gonçalves").email("luiz.g@email.com").build();
 		luizGoncalves.addAddress(Address.builder().country(ECountry.BRAZIL).postalCode("11223344").build());
+		luizGoncalves.addAddress(Address.builder().country(ECountry.UNITED_STATES).postalCode("5566778899").build());
 		clientRepository.save(luizGoncalves);
 	}
 
@@ -94,6 +97,27 @@ public class ClientRepositoryTests {
 	}
 
 	@Test
+	public void testOrderByName() {
+		clientSearchBuilder.order(BusinessOrder.builder().propertyPath(QClient.client.name).build());
+		List<Client> clients = clientRepository.search(clientSearchBuilder.build());
+		assertThat(clients).isNotEmpty();
+		assertThat(clients).hasSize(3);
+		Client client = clients.get(0);
+		assertThat(client.getName()).isEqualTo("Luiz Gonçalves");
+	}
+
+	@Test
+	public void testCount() {
+		List<ECountry> countrys = new ArrayList<>();
+		countrys.add(ECountry.BRAZIL);
+		countrys.add(ECountry.UNITED_STATES);
+
+		clientSearchBuilder.countrys(countrys);
+
+		assertThat(clientRepository.count(clientSearchBuilder.build())).isEqualTo(2L);
+	}
+
+	@Test
 	public void testSpringProjectionQuery() {
 		List<ClientRepository.ClientName> clientsNames = clientRepository.findNameByEmail("john@email.com");
 		assertThat(clientsNames).isNotEmpty();
@@ -101,4 +125,5 @@ public class ClientRepositoryTests {
 		ClientRepository.ClientName clientName = clientsNames.get(0);
 		assertThat(clientName.getName()).isEqualTo("John Doe");
 	}
+
 }

@@ -8,4 +8,6 @@ public interface ClientRepositoryCustom {
 
 	List<Client> search(ClientSearch search);
 
+	Long count(ClientSearch search);
+
 }
